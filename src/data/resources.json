@@ -1,0 +1,66 @@
+[
+  {
+    "id": "nalsa",
+    "name": "NALSA - National Legal Services Authority",
+    "description": "Free legal services to eligible citizens under the Legal Services Authorities Act 1987.",
+    "contact": "15100 (Toll-Free Legal Aid Helpline)",
+    "url": "https://nalsa.gov.in",
+    "scope": "National (India)"
+  },
+  {
+    "id": "tele-law",
+    "name": "Tele-Law Mainstreaming Legal Aid via CSC",
+    "description": "Government of India portal connecting citizens with panel lawyers for legal advice.",
+    "contact": "14416 / Nearest Common Services Centre (CSC)",
+    "url": "https://www.tele-law.in",
+    "scope": "National (India)"
+  },
+  {
+    "id": "consumer-helpline",
+    "name": "National Consumer Helpline (NCH)",
+    "description": "Official helpline under Ministry of Consumer Affairs for consumer disputes and grievances.",
+    "contact": "1915 / 1800-11-4000",
+    "url": "https://consumerhelpline.gov.in",
+    "scope": "National (India)"
+  },
+  {
+    "id": "mh-slsa",
+    "name": "Maharashtra State Legal Services Authority",
+    "description": "Free legal representation and aid in Maharashtra courts.",
+    "contact": "022-22691451 / 15100",
+    "url": "https://legalservices.maharashtra.gov.in",
+    "scope": "Maharashtra"
+  },
+  {
+    "id": "dl-slsa",
+    "name": "Delhi State Legal Services Authority (DSLSA)",
+    "description": "Free legal aid, victim assistance, and mediation in Delhi.",
+    "contact": "1516 (24x7 Helpline)",
+    "url": "http://dslsa.org",
+    "scope": "Delhi"
+  },
+  {
+    "id": "ka-slsa",
+    "name": "Karnataka State Legal Services Authority",
+    "description": "Free legal advice and aid services in Karnataka.",
+    "contact": "080-22111726 / 15100",
+    "url": "https://kslsa.kar.nic.in",
+    "scope": "Karnataka"
+  },
+  {
+    "id": "posh-ic",
+    "name": "PoSH Internal Committee & Women Helpline",
+    "description": "Support for workplace sexual harassment grievances under PoSH Act 2013.",
+    "contact": "1091 (Women Helpline)",
+    "url": "https://wcd.nic.in/act/handbook-sexual-harassment-women-workplace",
+    "scope": "National (Workplace)"
+  },
+  {
+    "id": "tele-manas",
+    "name": "Tele-MANAS Crisis & Mental Health Support",
+    "description": "24x7 free national mental health helpline.",
+    "contact": "14416 / 1800-891-4416",
+    "url": "https://telemanas.mohfw.gov.in",
+    "scope": "National (Emergency Support)"
+  }
+]
