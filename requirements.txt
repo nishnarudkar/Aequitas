@@ -1,0 +1,38 @@
+# Aequitas / Clarity System Requirements & Node Dependencies
+# Runtime Requirements:
+# Node.js >= 20.0.0
+# npm >= 10.0.0
+
+# Core Framework & Runtime
+next>=14.2.15
+react>=18.3.1
+react-dom>=18.3.1
+typescript>=5.6.3
+zod>=3.23.8
+
+# Styling & Icons
+tailwindcss>=3.4.14
+postcss>=8.4.47
+autoprefixer>=10.4.20
+clsx>=2.1.1
+tailwind-merge>=2.5.4
+lucide-react>=0.453.0
+
+# Document Parsing & Processing
+pdfjs-dist>=4.6.82
+mammoth>=1.8.0
+
+# LLM Adapters & SDKs
+@google/generative-ai>=0.21.0
+@anthropic-ai/sdk>=0.27.3
+
+# Testing & Quality Assurance
+vitest>=2.1.3
+@testing-library/react>=16.0.1
+@testing-library/jest-dom>=6.6.2
+axe-core>=4.10.0
+jest-axe>=9.0.0
+@playwright/test>=1.48.2
+eslint>=8.57.1
+eslint-config-next>=14.2.15
+prettier>=3.3.3
