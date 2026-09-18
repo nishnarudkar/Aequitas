@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #020617;
+  --foreground: #f8fafc;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  footer, header, nav, button {
+    display: none !important;
+  }
+}
