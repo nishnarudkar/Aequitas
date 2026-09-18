@@ -6,8 +6,9 @@ import { DocumentViewer } from '@/components/doc/DocumentViewer';
 import { ClauseCard } from '@/components/doc/ClauseCard';
 import { EscalationBanner } from '@/components/safety/EscalationBanner';
 import { AskPanel } from '@/components/qa/AskPanel';
+import { CompareView } from '@/components/compare/CompareView';
 import { AnalyzeResponse, Clause, ParseResponse, UserContext } from '@/types';
-import { Loader2, ArrowLeft, ShieldAlert, FileText, AlertTriangle } from 'lucide-react';
+import { Loader2, ArrowLeft, ShieldAlert, FileText, AlertTriangle, Scale } from 'lucide-react';
 
 export default function AnalysisWorkspacePage() {
   const router = useRouter();
@@ -17,6 +18,8 @@ export default function AnalysisWorkspacePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [focusedClauseId, setFocusedClauseId] = useState<string | undefined>(undefined);
+  const [activeTab, setActiveTab] = useState<'analysis' | 'compare'>('analysis');
+  const [documentTitle, setDocumentTitle] = useState('Uploaded Contract');
 
   useEffect(() => {
     const storedContext = sessionStorage.getItem('aequitas_context');
@@ -41,6 +44,9 @@ export default function AnalysisWorkspacePage() {
       const parsedCtx: UserContext = JSON.parse(storedContext);
       const parsedDoc: ParseResponse = JSON.parse(storedParse);
       setContext(parsedCtx);
+      if (parsedDoc.detectedType) {
+        setDocumentTitle(`${parsedDoc.detectedType} Contract`);
+      }
       runAnalysis(parsedCtx, parsedDoc, rawText);
     } catch (err: any) {
       setError('Failed to load session data.');
@@ -161,8 +167,45 @@ export default function AnalysisWorkspacePage() {
         <EscalationBanner escalation={analysis.plan.escalation} />
       )}
 
-      {/* Main 3-Pane Responsive Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-[600px]">
+      {/* Tab Bar */}
+      <div className="flex items-center gap-1 bg-slate-900/70 border border-slate-800 rounded-xl p-1 w-fit" role="tablist" aria-label="Analysis views">
+        <button
+          id="tab-analysis"
+          role="tab"
+          aria-selected={activeTab === 'analysis'}
+          aria-controls="panel-analysis"
+          type="button"
+          onClick={() => setActiveTab('analysis')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+            activeTab === 'analysis'
+              ? 'bg-amber-500 text-slate-950 shadow'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <ShieldAlert className="w-3.5 h-3.5" aria-hidden="true" />
+          Analysis
+        </button>
+        <button
+          id="tab-compare"
+          role="tab"
+          aria-selected={activeTab === 'compare'}
+          aria-controls="panel-compare"
+          type="button"
+          onClick={() => setActiveTab('compare')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+            activeTab === 'compare'
+              ? 'bg-amber-500 text-slate-950 shadow'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Scale className="w-3.5 h-3.5" aria-hidden="true" />
+          Compare
+        </button>
+      </div>
+
+      {/* Main 3-Pane Responsive Layout — Analysis Tab */}
+      {activeTab === 'analysis' && (
+      <div id="panel-analysis" role="tabpanel" aria-labelledby="tab-analysis" className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-[600px]">
         {/* Pane 1: Document Viewer */}
         <div className="lg:col-span-4 h-[600px] lg:h-auto">
           <DocumentViewer
@@ -252,6 +295,18 @@ export default function AnalysisWorkspacePage() {
           />
         </div>
       </div>
+      )}
+
+      {/* Compare Tab Panel */}
+      {activeTab === 'compare' && (
+        <div id="panel-compare" role="tabpanel" aria-labelledby="tab-compare" className="max-w-4xl mx-auto w-full">
+          <CompareView
+            clauses={analysis.clauses}
+            context={context!}
+            documentTitle={documentTitle}
+          />
+        </div>
+      )}
     </div>
   );
 }
