@@ -1,0 +1,24 @@
+{
+  "documentType": "employment",
+  "title": "Fair Market Baseline — Employment Agreement",
+  "fairClauses": [
+    {
+      "type": "notice-period-asymmetry",
+      "title": "Balanced Notice Period",
+      "text": "Either party may terminate employment by giving 30 to 60 days written notice or payment in lieu of notice.",
+      "importance": "high"
+    },
+    {
+      "type": "non-compete",
+      "title": "Reasonable Non-Compete / Non-Solicit",
+      "text": "Non-solicitation of clients and employees is limited to 6 months post-employment. Post-employment non-compete is restricted to actual conflict of interest.",
+      "importance": "high"
+    },
+    {
+      "type": "liquidated-damages",
+      "title": "No Unreasonable Training Bonds",
+      "text": "Employment is at-will post probation without arbitrary financial penalties or training bond recovery deductions.",
+      "importance": "high"
+    }
+  ]
+}

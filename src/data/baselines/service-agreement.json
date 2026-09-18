@@ -1,0 +1,30 @@
+{
+  "documentType": "service-agreement",
+  "title": "Fair Market Baseline — Independent Freelance Service Agreement",
+  "fairClauses": [
+    {
+      "type": "interest-late-fee",
+      "title": "Payment Terms & Late Payment Interest",
+      "text": "Invoices shall be payable within 15 to 30 days of submission. Overdue payments shall accrue interest at 1.5% per month.",
+      "importance": "high"
+    },
+    {
+      "type": "ip-assignment",
+      "title": "IP Transfer Upon Full Payment",
+      "text": "Intellectual Property created under this agreement shall transfer to the Client upon full payment of all invoice fees.",
+      "importance": "high"
+    },
+    {
+      "type": "liability-cap",
+      "title": "Mutual Cap on Liability",
+      "text": "Each party's maximum aggregate liability shall be capped at the total fees paid or payable under the applicable Statement of Work.",
+      "importance": "high"
+    },
+    {
+      "type": "indemnity",
+      "title": "Mutual Indemnification",
+      "text": "Each party agrees to indemnify the other against third-party claims arising from gross negligence, willful misconduct, or IP infringement.",
+      "importance": "medium"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "documentType": "loan",
+  "title": "Fair Market Baseline — Individual Loan Sanction Letter",
+  "fairClauses": [
+    {
+      "type": "interest-late-fee",
+      "title": "Transparent Interest & Zero Foreclosure Charges",
+      "text": "Floating interest rate resets are communicated in advance. No prepayment or foreclosure penalty shall apply to individual floating rate loans.",
+      "importance": "high"
+    },
+    {
+      "type": "unilateral-amendment",
+      "title": "Prior Notice for Term Changes",
+      "text": "Lender agrees to provide 30 days written notice before altering interest rates or fees.",
+      "importance": "high"
+    }
+  ]
+}

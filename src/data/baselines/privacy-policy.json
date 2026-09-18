@@ -1,0 +1,18 @@
+{
+  "documentType": "privacy-policy",
+  "title": "Fair Market Baseline — Consumer Privacy Policy",
+  "fairClauses": [
+    {
+      "type": "unilateral-amendment",
+      "title": "Advance Notice for Policy Changes",
+      "text": "Users will receive at least 30 days advance email notice before material updates to the privacy policy take effect.",
+      "importance": "high"
+    },
+    {
+      "type": "auto-renewal",
+      "title": "Clear Auto-Renewal & Cancellation",
+      "text": "Subscriptions auto-renew with explicit prior notice, and users may cancel auto-renewal at any time with one click.",
+      "importance": "high"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "documentType": "rental",
+  "title": "Fair Market Baseline — Residential Leave & Licence Agreement",
+  "fairClauses": [
+    {
+      "type": "security-deposit",
+      "title": "Security Deposit Refund",
+      "text": "The Licensor shall refund the full security deposit to the Licensee within 7 days of vacating the premises, subject only to deductions for unpaid utility bills or actual physical damage beyond normal wear and tear.",
+      "importance": "high"
+    },
+    {
+      "type": "lock-in",
+      "title": "Mutual Lock-in Period",
+      "text": "Both Licensor and Licensee agree to a mutual lock-in period of 1 to 3 months. After the lock-in period, either party may terminate by giving 1 month written notice.",
+      "importance": "high"
+    },
+    {
+      "type": "notice-period-asymmetry",
+      "title": "Mutual Notice Period",
+      "text": "Either party may terminate this agreement by giving 30 days written notice to the other party.",
+      "importance": "high"
+    },
+    {
+      "type": "unilateral-amendment",
+      "title": "Mutual Consent for Amendments",
+      "text": "No modification or amendment of this agreement shall be valid unless agreed to in writing and signed by both Licensor and Licensee.",
+      "importance": "medium"
+    }
+  ]
+}
