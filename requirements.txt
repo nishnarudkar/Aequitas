@@ -1,4 +1,5 @@
-# Aequitas / Clarity System Requirements & Node Dependencies
+# Aequitas - Equal footing in every agreement.
+# System Requirements & Node Dependencies
 # Runtime Requirements:
 # Node.js >= 20.0.0
 # npm >= 10.0.0

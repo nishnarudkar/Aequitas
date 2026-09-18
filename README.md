@@ -1,4 +1,4 @@
-# Clarity — AI for Legal Assistance & Access
+# Aequitas — Equal footing in every agreement.
 
 > Plain-language legal contract analysis, clause risk detection, persona-tuned guidance, and actionable briefs for non-lawyers in India.
 
@@ -6,7 +6,7 @@
 
 ## 1. What it is
 
-**Clarity** (Aequitas) is a web application designed for everyday individuals with no legal background. When a user pastes or uploads a legal document — such as a Leave & Licence agreement, freelance contract, employment offer letter, consumer privacy policy, or loan sanction letter — Clarity provides:
+**Aequitas** is a web application designed for everyday individuals with no legal background. When a user pastes or uploads a legal document — such as a Leave & Licence agreement, freelance contract, employment offer letter, consumer privacy policy, or loan sanction letter — Aequitas provides:
 
 - **Plain-language summary** (at an 8th-grade reading level).
 - **Clause-by-clause breakdown** with severity and risk scoring tuned strictly to **who the user is** (Persona) and **their jurisdiction**.
@@ -15,7 +15,7 @@
 - **Actionable checklist & negotiation asks** with proposed redline wording.
 - **One-page printable Lawyer Brief** to take to a legal aid professional.
 
-Clarity **never gives legal advice** and automatically routes users to free legal aid resources (NALSA, State Legal Services Authorities, Tele-Law, National Consumer Helpline 1915) whenever emergency or high-risk legal scenarios are detected.
+Aequitas **never gives legal advice** and automatically routes users to free legal aid resources (NALSA, State Legal Services Authorities, Tele-Law, National Consumer Helpline 1915) whenever emergency or high-risk legal scenarios are detected.
 
 ---
 
@@ -24,7 +24,7 @@ Clarity **never gives legal advice** and automatically routes users to free lega
 **Vertical:** AI for Legal Assistance & Access.  
 **Default Jurisdiction:** India (State-selectable: Maharashtra, Delhi, Karnataka, Telangana, West Bengal, and Other).
 
-Clarity is built for five specific target personas:
+Aequitas is built for five specific target personas:
 
 | Persona | Description | Typical Documents | Key Risks & Concerns |
 |---|---|---|---|
@@ -38,7 +38,7 @@ Clarity is built for five specific target personas:
 
 ## 3. Approach & Logic — The Context Engine
 
-The core value of Clarity is its **deterministic Context Engine** ([`src/lib/context/router.ts`](file:///c:/Users/Asus/OneDrive/Desktop/Aequitas/src/lib/context/router.ts)). The engine evaluates user context (Persona × Jurisdiction × Goal × Deadline × Signed status) *before* any LLM call to produce an `AnalysisPlan`.
+The core value of Aequitas is its **deterministic Context Engine** ([`src/lib/context/router.ts`](file:///c:/Users/Asus/OneDrive/Desktop/Aequitas/src/lib/context/router.ts)). The engine evaluates user context (Persona × Jurisdiction × Goal × Deadline × Signed status) *before* any LLM call to produce an `AnalysisPlan`.
 
 ### Worked Example:
 - **User Input:** Tenant in Maharashtra (`MH`), goal: `negotiate`, deadline: 4 days away.
@@ -73,7 +73,7 @@ flowchart TD
 
 ### Zero API Key Demo (Mock Mode - Default)
 
-Clarity is fully functional without any API key using deterministic fixtures:
+Aequitas is fully functional without any API key using deterministic fixtures:
 
 ```bash
 # 1. Install dependencies
@@ -114,15 +114,15 @@ $$\text{Score} = \text{clamp}\left(0, 100, \text{severity} \times 10 \times \tex
 - **80–100:** Get legal advice
 
 ### Escalation Triage Triggers
-If any emergency trigger is detected (e.g. court summons, FIR, eviction notice, PoSH/harassment, self-harm risk), Clarity immediately displays an **Escalation Banner**, constrains analysis to basic facts, and connects the user directly to legal aid resources (NALSA / Tele-Law / Helpline 1915).
+If any emergency trigger is detected (e.g. court summons, FIR, eviction notice, PoSH/harassment, self-harm risk), Aequitas immediately displays an **Escalation Banner**, constrains analysis to basic facts, and connects the user directly to legal aid resources (NALSA / Tele-Law / Helpline 1915).
 
 ---
 
 ## 7. Safety & Scope
 
-- **No Legal Advice:** Clarity provides informational text analysis only.
+- **No Legal Advice:** Aequitas provides informational text analysis only.
 - **Statute Pointers:** References to statutes are informational pointers for self-reading, never legal opinions.
-- **Always-on Disclaimer:** Rendered on every view and printed brief.
+- **Always-on Disclaimer:** Rendered on every view and printed brief: *"Aequitas gives information, not legal advice. It can be wrong. For decisions that matter, talk to a lawyer."*
 
 ---
 
