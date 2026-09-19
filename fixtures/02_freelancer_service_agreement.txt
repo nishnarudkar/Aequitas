@@ -1,0 +1,27 @@
+INDEPENDENT CONTRACTOR SERVICE AGREEMENT
+
+This Service Agreement is executed on 15th January 2025 at Bengaluru, Karnataka, by and between:
+
+CLIENT: Apex Global Technologies Pvt. Ltd., having its registered office at Koramangala, Bengaluru, Karnataka 560034.
+CONTRACTOR: Mr. Vikram Mehta, Independent Software Consultant, residing at Indiranagar, Bengaluru, Karnataka 560038.
+
+1. SCOPE OF SERVICES:
+The Contractor agrees to perform custom software engineering and API development services as detailed in Schedule A attached hereto.
+
+2. PAYMENT TERMS:
+The Client shall pay the Contractor a fixed fee of INR 200,000 upon final project completion. Payment terms shall be Net 90 days following receipt of tax invoice. In the event of invoice disputes, payment may be withheld indefinitely without interest.
+
+3. INTELLECTUAL PROPERTY ASSIGNMENT:
+All intellectual property rights, inventions, source code, designs, and work products created by the Contractor during or prior to this engagement shall immediately vest in the Client upon execution of this Agreement, regardless of whether payment has been made.
+
+4. NON-COMPETE AND NON-SOLICITATION:
+The Contractor agrees that for a period of 36 (thirty-six) months following the termination of this Agreement, the Contractor shall not provide similar software development services to any competitor of the Client anywhere in India or globally.
+
+5. INDEMNIFICATION AND LIABILITY:
+The Contractor agrees to indemnify, defend, and hold harmless the Client against any claims, losses, damages, or legal costs arising out of any delay or deficiency in service. The Contractor's liability under this Agreement shall be unlimited.
+
+6. TERMINATION FOR CONVENIENCE:
+The Client may terminate this Agreement at any time without cause and without payment for work completed to date. The Contractor may not terminate this Agreement prior to completion of all deliverables.
+
+7. GOVERNING LAW:
+This Agreement shall be governed by the laws of India and subject to the exclusive jurisdiction of the courts in Bengaluru, Karnataka.
