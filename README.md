@@ -4,166 +4,139 @@
 
 ---
 
-## 1. What it is
+## 📖 Overview
 
-**Aequitas** is a web application designed for everyday individuals with no legal background. When a user pastes or uploads a legal document — such as a Leave & Licence agreement, freelance contract, employment offer letter, consumer privacy policy, or loan sanction letter — Aequitas provides:
+**Aequitas** is an open-source web application engineered for everyday individuals without a legal background. When a user pastes or uploads a legal contract — such as a Leave & Licence agreement, freelance contract, employment offer letter, consumer privacy policy, or loan sanction letter — Aequitas provides:
 
-- **Plain-language summary** (at an 8th-grade reading level).
-- **Clause-by-clause breakdown** with severity and risk scoring tuned strictly to **who the user is** (Persona) and **their jurisdiction**.
-- **Interactive document Q&A** with mandatory clickable citation chips `[c-0001]` grounded strictly in document text.
-- **Contract comparison** against a second document or a built-in "fair market baseline".
-- **Actionable checklist & negotiation asks** with proposed redline wording.
-- **One-page printable Lawyer Brief** to take to a legal aid professional.
+1. **Plain-Language Summary**: 8th-grade reading level executive overview.
+2. **Clause-by-Clause Breakdown**: Severity and risk scoring tuned strictly to user **Persona** and **State Jurisdiction**.
+3. **Grounded Document Q&A**: Interactive Q&A backed by in-process BM25 retrieval with clickable citation chips (`[c-0001]`).
+4. **Contract Comparison Matrix**: Compare clauses against a second contract or built-in fair market baselines.
+5. **Action Checklist & Negotiation Asks**: Concrete counter-proposals with suggested redline wording.
+6. **1-Page Printable Lawyer Brief**: Structured intake summary to hand to a legal aid attorney.
+7. **Emergency Safety Escalation**: Automatic detection of emergency scenarios (evictions, harassment, court summons) routing users to free legal aid resources (NALSA, Tele-Law, NCH 1915).
 
-Aequitas **never gives legal advice** and automatically routes users to free legal aid resources (NALSA, State Legal Services Authorities, Tele-Law, National Consumer Helpline 1915) whenever emergency or high-risk legal scenarios are detected.
+Aequitas **never gives legal advice** and operates on a privacy-first, zero-persistence model.
 
 ---
 
-## 2. Chosen Vertical & Persona Set
+## 🎯 Target Personas & Jurisdictions
 
-**Vertical:** AI for Legal Assistance & Access.  
-**Default Jurisdiction:** India (State-selectable: Maharashtra, Delhi, Karnataka, Telangana, West Bengal, and Other).
+### Verticals & Personas
 
-Aequitas is built for five specific target personas:
-
-| Persona | Description | Typical Documents | Key Risks & Concerns |
+| Persona | Target User | Typical Contracts | Primary Concerns & Risks |
 |---|---|---|---|
 | `tenant` | Home renter | Leave & Licence, rent agreement, NOC | Deposit forfeiture, sudden eviction, hidden charges, lock-in period |
-| `freelancer` | Independent contractor | Service agreement, SOW, NDA, MSA | Non-payment, unlimited liability, IP assignment on signature, non-compete |
-| `employee` | Salaried worker | Offer letter, employment contract, bond | Long notice period, training bonds/penalties, non-compete, garden leave |
+| `freelancer` | Independent contractor | Service agreement, SOW, NDA, MSA | Non-payment, unlimited liability, IP assignment on signature, non-competes |
+| `employee` | Salaried worker | Offer letter, employment contract, bond | Long notice periods, training bonds/penalties, non-competes, garden leave |
 | `consumer` | App user / buyer | Privacy policy, T&C, warranty, insurance | Data sharing, auto-renewal, arbitration waivers, unilateral amendments |
-| `borrower` | Credit applicant | Loan sanction letter, personal loan, guarantee | Hidden interest, prepayment/foreclosure fees, guarantor liability |
+| `borrower` | Credit applicant | Loan sanction letter, personal loan, guarantee | Hidden interest rates, prepayment/foreclosure fees, guarantor liability |
+
+### Supported Jurisdictions
+- **Default Jurisdiction**: India (State-selectable: Maharashtra `MH`, Delhi `DL`, Karnataka `KA`, Telangana `TG`, West Bengal `WB`, and `Other`).
+- **Statute Pointers**: Informational pointers referencing relevant statutes (e.g., *Maharashtra Rent Control Act 1999*, *Indian Contract Act 1872 §27*, *Consumer Protection Act 2019*, *DPDP Act 2023*).
 
 ---
 
-## 3. Approach & Logic — The Context Engine
-
-The core value of Aequitas is its **deterministic Context Engine** ([`src/lib/context/router.ts`](file:///c:/Users/Asus/OneDrive/Desktop/Aequitas/src/lib/context/router.ts)). The engine evaluates user context (Persona × Jurisdiction × Goal × Deadline × Signed status) *before* any LLM call to produce an `AnalysisPlan`.
-
-### Worked Example:
-- **User Input:** Tenant in Maharashtra (`MH`), goal: `negotiate`, deadline: 4 days away.
-- **Context Engine Logic:**
-  1. Detects document as `rental` (Leave & Licence).
-  2. Prioritizes `security-deposit`, `lock-in`, `notice-period-asymmetry`, and `rent-escalation`.
-  3. Increases risk weights for deposit refund and early exit clauses.
-  4. Surfaces Maharashtra Rent Control Act 1999 statute hints (as informational pointers).
-  5. Triggers negotiation outputs (redline suggestions, counter-proposals).
-  6. Flags urgent deadline (< 7 days) and prioritizes time-sensitive exit terms.
-
----
-
-## 4. Architecture Diagram
+## ⚙️ Architecture & Data Flow
 
 ```mermaid
 flowchart TD
-    A[Raw File / Text Input] --> B[Parse PDF/DOCX/TXT]
-    B --> C[Segment into Clauses with Offsets]
-    C --> D[Deterministic Rule Detectors]
-    D --> E[Deterministic Context Engine]
-    E --> F[AnalysisPlan Generation]
-    F --> G[Plan-Driven LLM Passes / Mock Provider]
-    G --> H[Zod Output Schema Validation]
-    H --> I[Deterministic Risk Scoring Model]
-    I --> J[Workspace UI & Printable Lawyer Brief]
+    A[Raw PDF / DOCX / Text Input] --> B[Parser & Clause Segmentation with Offsets]
+    B --> C[Deterministic Rule Detectors (~20 detectors)]
+    C --> D[Deterministic Context Engine]
+    D --> E[AnalysisPlan Generation]
+    E --> F[Plan-Driven LLM Passes / Mock Adapter]
+    F --> G[Zod Output Schema Validation & Repair]
+    G --> H[Deterministic Risk Scoring Engine]
+    H --> I[4-Pane Workspace UI & Printable Lawyer Brief]
 ```
+
+### Key Technical Architecture Highlights
+
+- **Deterministic Context Engine** ([`src/lib/context/router.ts`](file:///c:/Users/Asus/OneDrive/Desktop/Aequitas/src/lib/context/router.ts)): Evaluates Persona $\times$ Jurisdiction $\times$ Goal $\times$ Deadline *before* any LLM call to generate a deterministic `AnalysisPlan`.
+- **In-Process BM25 Retrieval** ([`src/lib/bm25/index.ts`](file:///c:/Users/Asus/OneDrive/Desktop/Aequitas/src/lib/bm25/index.ts)): Lightweight, fast in-memory text retrieval over clause chunks with zero external vector database dependencies.
+- **Pluggable LLM Adapter System** ([`src/lib/llm/`](file:///c:/Users/Asus/OneDrive/Desktop/Aequitas/src/lib/llm/)): Supports **Google Gemini**, **Anthropic Claude**, and a deterministic **Mock Provider** for zero-API-key offline development.
+- **PII Redaction & Sanitization** ([`src/lib/security/`](file:///c:/Users/Asus/OneDrive/Desktop/Aequitas/src/lib/security/)): Aadhaar, PAN, phone numbers, email addresses, and names are sanitized prior to model inference.
 
 ---
 
-## 5. How to Run
+## 🚀 API Endpoint Reference
 
-### Zero API Key Demo (Mock Mode - Default)
+| Endpoint | Method | Description | Payload Schema |
+|---|---|---|---|
+| `/api/parse` | `POST` | Parses PDF/DOCX/TXT into segmented clauses with character offsets | `FormData` or `{ text: string }` |
+| `/api/analyze` | `POST` | Runs Context Engine rules & LLM synthesis to return risk cards & brief | `{ clauses, context, documentType }` |
+| `/api/ask` | `POST` | BM25 retrieval + LLM grounded Q&A with strict citation validation | `{ question, context, clauses }` |
+| `/api/compare` | `POST` | Compares two contracts or document vs fair market baseline | `{ docA, docB, context, isBaseline }` |
+| `/api/brief` | `POST` | Formats 1-page printable legal brief and plain-text markdown export | `{ synthesis, context, documentType }` |
 
-Aequitas is fully functional without any API key using deterministic fixtures:
+---
+
+## ⚡ How to Run Locally
+
+### 1. Mock Mode (Default - Zero API Key Required)
 
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Start dev server (LLM_PROVIDER defaults to mock if no keys set)
-LLM_PROVIDER=mock npm run dev
+# 2. Run local development server
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Production / Real LLM Mode
+### 2. Real LLM Mode (Gemini / Anthropic)
 
-Copy `.env.example` to `.env.local` and configure your keys:
+1. Copy `.env.example` to `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+2. Configure `.env.local`:
+   ```env
+   LLM_PROVIDER=gemini
+   GEMINI_API_KEY=your_gemini_api_key_here
+   GEMINI_MODEL=gemini-2.0-flash
+   ```
+3. Start the server:
+   ```bash
+   npm run dev
+   ```
 
-```env
-LLM_PROVIDER=gemini
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.0-flash
-```
+---
 
-Then run:
+## 🧪 Testing & Verification
 
 ```bash
-npm run dev
-```
-
----
-
-## 6. How it Decides — Risk Scoring & Escalation
-
-### Risk Scoring Formula
-$$\text{Score} = \text{clamp}\left(0, 100, \text{severity} \times 10 \times \text{personaWeight} + \text{asymmetryPenalty} + \text{deadlinePressure} - \text{mutualityCredit}\right)$$
-
-- **0–29:** Standard
-- **30–59:** Worth a look
-- **60–79:** Negotiate this
-- **80–100:** Get legal advice
-
-### Escalation Triage Triggers
-If any emergency trigger is detected (e.g. court summons, FIR, eviction notice, PoSH/harassment, self-harm risk), Aequitas immediately displays an **Escalation Banner**, constrains analysis to basic facts, and connects the user directly to legal aid resources (NALSA / Tele-Law / Helpline 1915).
-
----
-
-## 7. Safety & Scope
-
-- **No Legal Advice:** Aequitas provides informational text analysis only.
-- **Statute Pointers:** References to statutes are informational pointers for self-reading, never legal opinions.
-- **Always-on Disclaimer:** Rendered on every view and printed brief: *"Aequitas gives information, not legal advice. It can be wrong. For decisions that matter, talk to a lawyer."*
-
----
-
-## 8. Security & Privacy
-
-- **No Persistence:** Zero database, zero disk storage of document text. Document text exists only in memory for the request duration.
-- **PII Redaction:** Aadhaar, PAN, phone numbers, email addresses, and bank accounts are masked before reaching the LLM and rehydrated locally.
-- **No Client Keys:** All LLM requests execute in server API routes.
-
----
-
-## 9. Accessibility (WCAG 2.1 AA)
-
-- Keyboard navigation and visible focus rings across all interactive controls.
-- Color contrast >= 4.5:1; risk bands rely on text labels and icons, never color alone.
-- Highlighting and screen-reader live region (`aria-live="polite"`) updates.
-
----
-
-## 10. Testing
-
-Run the test suite:
-
-```bash
-# Run unit & schema contract tests
+# Run Unit & Integration Test Suite (111 tests)
 npm run test
 
-# Run TypeScript check
+# Run TypeScript Strict Check
 npm run typecheck
+
+# Run Next.js Linter
+npm run lint
+
+# Build Production Bundle
+npm run build
+
+# Run Playwright E2E Tests
+npx playwright test
 ```
 
 ---
 
-## 11. Assumptions & Limitations
+## ⚖️ Safety & Legal Disclaimer
 
-- Scanned PDFs without OCR text layers prompt the user to copy/paste text.
-- Legal statute hints are tailored for Indian jurisdiction defaults.
+- **Informational Purpose Only**: Aequitas is an AI-powered document analysis tool designed for intake preparation and educational clarity. It does not provide formal legal advice or create an attorney-client relationship.
+- **Legal Aid Referrals**: If emergency legal situations or high-risk disputes are detected, Aequitas connects users to free legal aid resources:
+  - **NALSA Helpline**: `15100`
+  - **Tele-Law**: `14416`
+  - **National Consumer Helpline**: `1915`
 
 ---
 
-## 12. Future Enhancements
+## 📄 License
 
-- Client-side OCR via WebAssembly for scanned document support.
-- Expanded vernacular support (Tamil, Telugu, Kannada).
+Distributed under the MIT License. See `LICENSE` for more information.
