@@ -20,7 +20,7 @@ export async function parsePdf(
       : new Uint8Array(buffer as ArrayBuffer);
 
   // Dynamic import pdfjs-dist for node / bundler compatibility
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  // eslint-disable-next-line
   const pdfjsLib = require('pdfjs-dist');
 
   const loadingTask = pdfjsLib.getDocument({
