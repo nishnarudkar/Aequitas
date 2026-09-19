@@ -1,5 +1,5 @@
 /**
- * In-memory sliding-window rate limiter for server API routes.
+ * In-memory sliding-window rate limiter for server API routes with automatic memory cleanup.
  */
 
 interface RateLimitRecord {
