@@ -7,8 +7,11 @@ import { ClauseCard } from '@/components/doc/ClauseCard';
 import { EscalationBanner } from '@/components/safety/EscalationBanner';
 import { AskPanel } from '@/components/qa/AskPanel';
 import { CompareView } from '@/components/compare/CompareView';
+import { Checklist } from '@/components/outputs/Checklist';
+import { NegotiationAsks } from '@/components/outputs/NegotiationAsks';
+import { LawyerBrief } from '@/components/outputs/LawyerBrief';
 import { AnalyzeResponse, Clause, ParseResponse, UserContext } from '@/types';
-import { Loader2, ArrowLeft, ShieldAlert, FileText, AlertTriangle, Scale } from 'lucide-react';
+import { Loader2, ArrowLeft, ShieldAlert, FileText, AlertTriangle, Scale, CheckSquare, FileCheck } from 'lucide-react';
 
 export default function AnalysisWorkspacePage() {
   const router = useRouter();
@@ -18,7 +21,7 @@ export default function AnalysisWorkspacePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [focusedClauseId, setFocusedClauseId] = useState<string | undefined>(undefined);
-  const [activeTab, setActiveTab] = useState<'analysis' | 'compare'>('analysis');
+  const [activeTab, setActiveTab] = useState<'analysis' | 'action' | 'brief' | 'compare'>('analysis');
   const [documentTitle, setDocumentTitle] = useState('Uploaded Contract');
 
   useEffect(() => {
@@ -168,7 +171,7 @@ export default function AnalysisWorkspacePage() {
       )}
 
       {/* Tab Bar */}
-      <div className="flex items-center gap-1 bg-slate-900/70 border border-slate-800 rounded-xl p-1 w-fit" role="tablist" aria-label="Analysis views">
+      <div className="flex flex-wrap items-center gap-1 bg-slate-900/70 border border-slate-800 rounded-xl p-1 w-fit" role="tablist" aria-label="Analysis views">
         <button
           id="tab-analysis"
           role="tab"
@@ -183,7 +186,39 @@ export default function AnalysisWorkspacePage() {
           }`}
         >
           <ShieldAlert className="w-3.5 h-3.5" aria-hidden="true" />
-          Analysis
+          Analysis & Risks
+        </button>
+        <button
+          id="tab-action"
+          role="tab"
+          aria-selected={activeTab === 'action'}
+          aria-controls="panel-action"
+          type="button"
+          onClick={() => setActiveTab('action')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+            activeTab === 'action'
+              ? 'bg-amber-500 text-slate-950 shadow'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <CheckSquare className="w-3.5 h-3.5" aria-hidden="true" />
+          Checklist & Negotiation
+        </button>
+        <button
+          id="tab-brief"
+          role="tab"
+          aria-selected={activeTab === 'brief'}
+          aria-controls="panel-brief"
+          type="button"
+          onClick={() => setActiveTab('brief')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
+            activeTab === 'brief'
+              ? 'bg-amber-500 text-slate-950 shadow'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <FileCheck className="w-3.5 h-3.5" aria-hidden="true" />
+          Print Lawyer Brief
         </button>
         <button
           id="tab-compare"
@@ -295,6 +330,30 @@ export default function AnalysisWorkspacePage() {
           />
         </div>
       </div>
+      )}
+
+      {/* Action & Negotiation Tab Panel */}
+      {activeTab === 'action' && (
+        <div id="panel-action" role="tabpanel" aria-labelledby="tab-action" className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto w-full">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+            <Checklist items={analysis.synthesis.checklist} />
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
+            <NegotiationAsks asks={analysis.synthesis.negotiationAsks} />
+          </div>
+        </div>
+      )}
+
+      {/* Lawyer Brief Tab Panel */}
+      {activeTab === 'brief' && (
+        <div id="panel-brief" role="tabpanel" aria-labelledby="tab-brief" className="max-w-4xl mx-auto w-full">
+          <LawyerBrief
+            brief={analysis.synthesis.lawyerBrief}
+            context={context!}
+            documentType={analysis.plan.documentType}
+            isEscalated={analysis.plan.escalation.triggered}
+          />
+        </div>
       )}
 
       {/* Compare Tab Panel */}
