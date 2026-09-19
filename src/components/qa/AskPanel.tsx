@@ -105,7 +105,7 @@ export function AskPanel({
               {item.response.isUnanswered && item.response.suggestedLawyerQuestion && (
                 <div className="mt-2 p-2.5 rounded-lg bg-amber-950/40 border border-amber-900/60 text-amber-200 flex items-center justify-between gap-2">
                   <span className="text-[11px] italic">
-                    Not in text. Suggested Lawyer Question: "{item.response.suggestedLawyerQuestion}"
+                    Not in text. Suggested Lawyer Question: &quot;{item.response.suggestedLawyerQuestion}&quot;
                   </span>
                   <button
                     type="button"

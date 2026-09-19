@@ -214,7 +214,7 @@ export default function LandingPage() {
             <div>
               <h4 className="font-bold">Scanned Image PDF Detected</h4>
               <p className="mt-0.5">
-                This document looks like a scanned image. Aequitas cannot read image pixels yet — please copy and paste the text directly into the "Paste Text" tab above.
+                This document looks like a scanned image. Aequitas cannot read image pixels yet — please copy and paste the text directly into the &quot;Paste Text&quot; tab above.
               </p>
             </div>
           </div>
